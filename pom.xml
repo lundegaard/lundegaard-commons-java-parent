@@ -177,7 +177,6 @@
                                 </requireMavenVersion>
                                 <requireReleaseDeps/>
                                 <requireUpperBoundDeps/>
-                                <requirePluginVersions/>
                             </rules>
                         </configuration>
                     </execution>
@@ -221,9 +220,9 @@
                     <strictCheck>true</strictCheck>
                     <encoding>UTF-8</encoding>
                     <includes>
-                        <include>src/java/groovy/**</include>
-                        <include>src/java/java/**</include>
-                        <include>src/java/kotlin/**</include>
+                        <include>src/main/groovy/**</include>
+                        <include>src/main/java/**</include>
+                        <include>src/main/kotlin/**</include>
                         <include>src/test/groovy/**</include>
                         <include>src/test/java/**</include>
                         <include>src/test/kotlin/**</include>

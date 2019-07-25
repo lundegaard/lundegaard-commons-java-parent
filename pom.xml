@@ -40,7 +40,7 @@
     </properties>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>lundegaard-commons-java-${project.artifactId}</finalName>
 
         <resources>
             <resource>

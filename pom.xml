@@ -33,10 +33,12 @@
         <project.java.target.ver>1.8</project.java.target.ver>
 
         <!-- Framework versions -->
+        <lundegaard.build.support.version>1.0.0</lundegaard.build.support.version>
 
         <!-- Plugin properties -->
         <license.plugin.year>2019</license.plugin.year>
         <root.project.dir>${project.basedir}</root.project.dir>
+        <build.timestamp>${maven.build.timestamp}</build.timestamp>
     </properties>
 
     <build>
@@ -62,18 +64,26 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
-                </plugin>
-
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.1.0</version>
                     <configuration>
-                        <encoding>UTF-8</encoding>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <source>${project.java.source.ver}</source>
+                        <target>${project.java.target.ver}</target>
                     </configuration>
                 </plugin>
-
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.1.2</version>
@@ -86,97 +96,36 @@
                         </archive>
                     </configuration>
                 </plugin>
-
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.7.1</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M3</version>
                 </plugin>
-
                 <plugin>
-                    <groupId>org.commonjava.maven.plugins</groupId>
-                    <artifactId>directory-maven-plugin</artifactId>
-                    <version>0.3.1</version>
-                    <executions>
-                        <execution>
-                            <id>directories</id>
-                            <goals>
-                                <goal>highest-basedir</goal>
-                            </goals>
-                            <phase>initialize</phase>
-                            <configuration>
-                                <property>root.project.dir</property>
-                            </configuration>
-                        </execution>
-                    </executions>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
                 </plugin>
-
                 <plugin>
-                    <groupId>com.mycila</groupId>
-                    <artifactId>license-maven-plugin</artifactId>
-                    <version>3.0</version>
-                    <executions>
-                        <execution>
-                            <id>ensure-license-headers</id>
-                            <goals>
-                                <goal>format</goal>
-                            </goals>
-                            <phase>process-sources</phase>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <header>licenses/lundegaard-proprietary.txt</header>
-                        <failIfMissing>false</failIfMissing>
-                        <strictCheck>true</strictCheck>
-                        <encoding>UTF-8</encoding>
-                        <includes>
-                            <include>src/main/java/**</include>
-                            <include>src/test/java/**</include>
-                            <include>src/test/groovy/**</include>
-                            <!--  <include>src/main/webapp/WEB-INF/jsp/**</include> -->
-                        </includes>
-                        <properties>
-                            <year>${license.plugin.year}</year>
-                        </properties>
-                        <mapping>
-                            <java>SLASHSTAR_STYLE</java>
-                            <jspf>DYNASCRIPT_STYLE</jspf>
-                        </mapping>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>eu.lundegaard.commons</groupId>
-                            <artifactId>lundegaard-build-tools</artifactId>
-                            <version>${lundegaard.build.tools.version}</version>
-                        </dependency>
-                    </dependencies>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.1.1</version>
                 </plugin>
-
                 <plugin>
-                    <!-- see https://github.com/ktoso/maven-git-commit-id-plugin -->
-                    <groupId>pl.project13.maven</groupId>
-                    <artifactId>git-commit-id-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <executions>
-                        <execution>
-                            <phase>validate</phase>
-                            <goals>
-                                <goal>revision</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <dateFormat>yyyy-MM-dd HH:mm:ss ZZZ</dateFormat>
-                        <verbose>false</verbose>
-                        <dotGitDirectory>${root.project.dir}/.git</dotGitDirectory>
-                        <generateGitPropertiesFile>false</generateGitPropertiesFile>
-                        <failOnNoGitDirectory>false</failOnNoGitDirectory>
-                        <gitDescribe>
-                            <always>true</always>
-                            <dirty>-dirty</dirty>
-                            <abbrev>15</abbrev>
-                        </gitDescribe>
-                    </configuration>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>3.6.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.1.0</version>
                 </plugin>
 
                 <plugin>
@@ -204,26 +153,6 @@
                     </executions>
                 </plugin>
 
-                <plugin>
-                    <groupId>biz.aQute.bnd</groupId>
-                    <artifactId>bnd-maven-plugin</artifactId>
-                    <version>4.2.0</version>
-                    <executions>
-                        <execution>
-                            <id>default-bnd-process</id>
-                            <goals>
-                                <goal>bnd-process</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>biz.aQute.bnd</groupId>
-                            <artifactId>biz.aQute.bndlib</artifactId>
-                            <version>4.2.0</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -246,6 +175,9 @@
                                 <requireMavenVersion>
                                     <version>[3.6.0,4.0.0)</version>
                                 </requireMavenVersion>
+                                <requireReleaseDeps/>
+                                <requireUpperBoundDeps/>
+                                <requirePluginVersions/>
                             </rules>
                         </configuration>
                     </execution>
@@ -253,35 +185,96 @@
             </plugin>
 
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>${project.java.source.ver}</source>
-                    <target>${project.java.target.ver}</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
-                <configuration>
-                    <skip>true</skip>
-                    <skipDeploy>true</skipDeploy>
-                </configuration>
+                <groupId>org.commonjava.maven.plugins</groupId>
+                <artifactId>directory-maven-plugin</artifactId>
+                <version>0.3.1</version>
+                <executions>
+                    <execution>
+                        <id>directories</id>
+                        <goals>
+                            <goal>highest-basedir</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <property>root.project.dir</property>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
+                <version>3.0</version>
+                <executions>
+                    <execution>
+                        <id>ensure-license-headers</id>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <header>licenses/lundegaard-lgpl-notice.txt</header>
+                    <failIfMissing>false</failIfMissing>
+                    <strictCheck>true</strictCheck>
+                    <encoding>UTF-8</encoding>
+                    <includes>
+                        <include>src/java/groovy/**</include>
+                        <include>src/java/java/**</include>
+                        <include>src/java/kotlin/**</include>
+                        <include>src/test/groovy/**</include>
+                        <include>src/test/java/**</include>
+                        <include>src/test/kotlin/**</include>
+                    </includes>
+                    <properties>
+                        <year>${license.plugin.year}</year>
+                    </properties>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                        <jspf>DYNASCRIPT_STYLE</jspf>
+                    </mapping>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>eu.lundegaard.commons</groupId>
+                        <artifactId>build-support</artifactId>
+                        <version>${lundegaard.build.support.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
+                <!-- see https://github.com/ktoso/maven-git-commit-id-plugin -->
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dateFormat>yyyy-MM-dd HH:mm:ss ZZZ</dateFormat>
+                    <verbose>false</verbose>
+                    <dotGitDirectory>${root.project.dir}/.git</dotGitDirectory>
+                    <generateGitPropertiesFile>false</generateGitPropertiesFile>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                    <gitDescribe>
+                        <always>true</always>
+                        <dirty>-dirty</dirty>
+                        <abbrev>15</abbrev>
+                    </gitDescribe>
+                </configuration>
             </plugin>
 
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>module-info-properties</id>
@@ -293,8 +286,8 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>eu.lundegaard.commons</groupId>
-                                    <artifactId>lundegaard-build-tools</artifactId>
-                                    <version>${lundegaard.build.tools.version}</version>
+                                    <artifactId>build-support</artifactId>
+                                    <version>${lundegaard.build.support.version}</version>
                                     <type>jar</type>
                                     <outputDirectory>${project.build.directory}/generated-sources/module-info</outputDirectory>
                                 </artifactItem>
@@ -311,34 +304,6 @@
                         <configuration>
                             <failOnWarning>true</failOnWarning>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -364,14 +329,126 @@
                 <dependencies>
                     <dependency>
                         <groupId>eu.lundegaard.commons</groupId>
-                        <artifactId>lundegaard-build-tools</artifactId>
-                        <version>${lundegaard.build.tools.version}</version>
+                        <artifactId>build-support</artifactId>
+                        <version>${lundegaard.build.support.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
 
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-maven-plugin</artifactId>
+                <version>4.2.0</version>
+                <executions>
+                    <execution>
+                        <id>default-bnd-process</id>
+                        <goals>
+                            <goal>bnd-process</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>biz.aQute.bnd</groupId>
+                        <artifactId>biz.aQute.bndlib</artifactId>
+                        <version>4.2.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+                <configuration>
+                    <skip>true</skip>
+                    <skipDeploy>true</skipDeploy>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
+
+
+    <profiles>
+        <profile>
+            <id>check-updates</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>versions-maven-plugin</artifactId>
+                        <version>2.7</version>
+                        <executions>
+                            <execution>
+                                <id>display-updates</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>display-parent-updates</goal>
+                                    <goal>display-plugin-updates</goal>
+                                    <goal>display-dependency-updates</goal>
+                                    <goal>display-property-updates</goal>
+                                </goals>
+                                <configuration>
+                                    <rulesUri>classpath:///maven-versions/rules.xml</rulesUri>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>eu.lundegaard.commons</groupId>
+                                <artifactId>build-support</artifactId>
+                                <version>${lundegaard.build.support.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <distributionManagement>
         <repository>

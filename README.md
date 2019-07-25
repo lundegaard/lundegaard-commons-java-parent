@@ -1,1 +1,1 @@
-# lundegaard-commons-java-parent
+# Lundegaard Java Commons Parent POM

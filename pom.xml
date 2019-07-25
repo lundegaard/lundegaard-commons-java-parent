@@ -299,6 +299,16 @@
                             <includes>**/module-info.properties</includes>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>analyze</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>analyze-only</goal>
+                        </goals>
+                        <configuration>
+                            <failOnWarning>true</failOnWarning>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 

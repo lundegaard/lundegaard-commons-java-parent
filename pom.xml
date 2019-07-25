@@ -2,17 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>eu.lundegaard.commons</groupId>
-    <artifactId>lundegaard-commons</artifactId>
-    <version>2.9.0-SNAPSHOT</version>
+    <groupId>eu.lundegaard.commons.java</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Lundegaard Commons :: Project Build</name>
-    <description>Lundegaard commons project holding common libraries used in projects.</description>
+    <name>Lundegaard Java Commons :: Parent POM</name>
+    <description>Parent POM for Lundegaard Java commons projects.</description>
 
     <organization>
-        <name>Lundegaard, s. r. o.</name>
-        <url>http://www.lundegaard.eu</url>
+        <name>Lundegaard a.s.</name>
+        <url>https://lundegaard.eu</url>
     </organization>
 
     <issueManagement>
@@ -25,22 +25,6 @@
         <url>https://jenkins.lnd.bz</url>
     </ciManagement>
 
-    <scm>
-        <developerConnection>scm:git:git@bitbucket.org:lundegaard/lundegaard-commons.git</developerConnection>
-        <connection>scm:git:git@bitbucket.org:lundegaard/lundegaard-commons.git</connection>
-        <url>https://bitbucket.org/lundegaard/lundegaard-commons</url>
-    </scm>
-
-    <modules>
-        <module>lundegaard-build-tools</module>
-        <module>lundegaard-commons-core</module>
-        <module>lundegaard-commons-portlet</module>
-        <module>lundegaard-commons-jackson</module>
-        <module>lundegaard-commons-util</module>
-        <module>lundegaard-commons-name-generator</module>
-        <module>lundegaard-commons-test</module>
-    </modules>
-
     <properties>
         <!-- Project properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -49,22 +33,9 @@
         <project.java.target.ver>1.8</project.java.target.ver>
 
         <!-- Framework versions -->
-        <lundegaard.build.tools.version>2.6.0</lundegaard.build.tools.version>
-        <aspectj.version>1.8.9</aspectj.version>
-        <dozer.version>5.5.1</dozer.version>
-        <hsqldb.version>2.3.4</hsqldb.version>
-        <jackson.version>2.6.6</jackson.version>
-        <junit.version>4.12</junit.version>
-        <liferay.version>6.2.5</liferay.version>
-        <liquibase.version>3.5.1</liquibase.version>
-        <log4j.version>1.2.17</log4j.version>
-        <hibernate.version>4.3.11.Final</hibernate.version>
-        <slf4j.version>1.7.21</slf4j.version>
-        <spring.version>4.3.1.RELEASE</spring.version>
-        <spring.data.version>1.7.1.RELEASE</spring.data.version>
 
         <!-- Plugin properties -->
-        <license.plugin.year>2018</license.plugin.year>
+        <license.plugin.year>2019</license.plugin.year>
         <root.project.dir>${project.basedir}</root.project.dir>
     </properties>
 

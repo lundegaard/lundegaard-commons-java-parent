@@ -4,7 +4,7 @@
 
     <groupId>eu.lundegaard.commons.java</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
     <packaging>pom</packaging>
 
     <name>Lundegaard Java Commons :: Parent POM</name>
@@ -33,7 +33,7 @@
         <project.java.target.ver>1.8</project.java.target.ver>
 
         <!-- Framework versions -->
-        <lundegaard.build.support.version>1.0.0</lundegaard.build.support.version>
+        <lundegaard.build.support.version>1.1.0</lundegaard.build.support.version>
 
         <!-- Plugin properties -->
         <license.plugin.year>2019</license.plugin.year>
@@ -366,8 +366,7 @@
 
         </plugins>
     </build>
-
-
+    
     <profiles>
         <profile>
             <id>check-updates</id>

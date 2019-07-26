@@ -9,6 +9,7 @@
 
     <name>Lundegaard Java Commons :: Parent POM</name>
     <description>Parent POM for Lundegaard Java commons projects.</description>
+    <url>https://github.com/lundegaard/lundegaard-commons-java-parent</url>
 
     <organization>
         <name>Lundegaard a.s.</name>
@@ -31,6 +32,12 @@
             <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
         </license>
     </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/simpligility/ossrh-demo.git</connection>
+        <developerConnection>scm:git:ssh://github.com:simpligility/ossrh-demo.git</developerConnection>
+        <url>https://github.com/lundegaard/lundegaard-commons-java-parent/tree/master</url>
+    </scm>
 
     <properties>
         <!-- Project properties -->

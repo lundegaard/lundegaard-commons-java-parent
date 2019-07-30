@@ -4,7 +4,7 @@
 
     <groupId>eu.lundegaard.commons.java</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.3.0</version>
+    <version>3.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Lundegaard Java Commons :: Parent POM</name>

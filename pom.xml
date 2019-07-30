@@ -4,42 +4,12 @@
 
     <groupId>eu.lundegaard.commons.java</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.2.1</version>
+    <version>3.3.0</version>
     <packaging>pom</packaging>
 
     <name>Lundegaard Java Commons :: Parent POM</name>
     <description>Parent POM for Lundegaard Java commons projects.</description>
     <url>https://github.com/lundegaard/lundegaard-commons-java-parent</url>
-
-    <organization>
-        <name>Lundegaard a.s.</name>
-        <url>https://lundegaard.eu</url>
-    </organization>
-
-    <issueManagement>
-        <system>Jira</system>
-        <url>https://jira.lnd.bz</url>
-    </issueManagement>
-
-    <ciManagement>
-        <system>Jenkins</system>
-        <url>https://jenkins.lnd.bz</url>
-    </ciManagement>
-
-    <licenses>
-        <license>
-            <name>GNU Lesser General Public License 3.0</name>
-            <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
-        </license>
-    </licenses>
-
-    <inceptionYear>2016</inceptionYear>
-
-    <scm>
-        <connection>scm:git:git://github.com/lundegaard/lundegaard-commons-java-parent.git</connection>
-        <developerConnection>scm:git:ssh://github.com:lundegaard/lundegaard-commons-java-parent.git</developerConnection>
-        <url>https://github.com/lundegaard/lundegaard-commons-java-parent/tree/master</url>
-    </scm>
 
     <properties>
         <!-- Project properties -->
@@ -49,7 +19,7 @@
         <project.java.target.ver>1.8</project.java.target.ver>
 
         <!-- Framework versions -->
-        <lundegaard.build.support.version>1.1.0</lundegaard.build.support.version>
+        <lundegaard.build.support.version>1.2.0</lundegaard.build.support.version>
 
         <!-- Plugin properties -->
         <license.plugin.year>2019</license.plugin.year>
@@ -134,10 +104,6 @@
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.1.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-plugin-plugin</artifactId>
-                    <version>3.6.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
@@ -382,7 +348,7 @@
 
         </plugins>
     </build>
-    
+
     <profiles>
         <profile>
             <id>check-updates</id>
@@ -482,22 +448,92 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
 
     <distributionManagement>
-        <repository>
-            <id>lundegaard-nexus-releases</id>
-            <name>Lundegaard repository</name>
-            <url>https://nexus.lnd.bz/repository/maven-releases/</url>
-        </repository>
         <snapshotRepository>
-            <id>lundegaard-nexus-snapshots</id>
-            <name>lundegaard repository</name>
-            <url>https://nexus.lnd.bz/repository/maven-snapshots/</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
+
+    <organization>
+        <name>Lundegaard a.s.</name>
+        <url>https://www.lundegaard.eu</url>
+    </organization>
+
+    <issueManagement>
+        <system>Jira</system>
+        <url>https://jira.lnd.bz</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://jenkins.lnd.bz</url>
+    </ciManagement>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License 3.0</name>
+            <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
+        </license>
+    </licenses>
+
+    <inceptionYear>2016</inceptionYear>
+
+    <developers>
+        <developer>
+            <id>ales.rybak</id>
+            <name>Aleš Rybák</name>
+            <email>ales.rybak@lundegaard.eu</email>
+            <organization>Lundegaard a.s.</organization>
+            <organizationUrl>https://www.lundegaard.eu</organizationUrl>
+        </developer>
+        <developer>
+            <id>jiri.kadlec</id>
+            <name>Jiří Kadlec</name>
+            <email>jiri.kadlec@lundegaard.eu</email>
+            <organization>Lundegaard a.s.</organization>
+            <organizationUrl>https://www.lundegaard.eu</organizationUrl>
+        </developer>
+        <developer>
+            <id>jakub.kohout</id>
+            <name>Jakub Kohout</name>
+            <email>jakub.kohout@lundegaard.eu</email>
+            <organization>Lundegaard a.s.</organization>
+            <organizationUrl>https://www.lundegaard.eu</organizationUrl>
+        </developer>
+        <developer>
+            <id>roman.srom</id>
+            <name>Roman Šrom</name>
+            <email>roman.srom@lundegaard.eu</email>
+            <organization>Lundegaard a.s.</organization>
+            <organizationUrl>https://www.lundegaard.eu</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/lundegaard/lundegaard-commons-java-parent.git</connection>
+        <developerConnection>scm:git:ssh://github.com:lundegaard/lundegaard-commons-java-parent.git</developerConnection>
+        <url>https://github.com/lundegaard/lundegaard-commons-java-parent/tree/master</url>
+    </scm>
 
 </project>
